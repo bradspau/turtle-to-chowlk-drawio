@@ -1,0 +1,214 @@
+@prefix : <http://example.org/university#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://example.org/university> a owl:Ontology ;
+    dcterms:title "University and Research Ontology" ;
+    dcterms:description "A synthetic ontology covering people, organizations, places, events, publications, courses, projects and resources -- generated to stress-test gen_drawio.py layout with ~50 classes and a wide variety of relationships." ;
+    owl:versionInfo "1.0" .
+
+# ---- classes ----
+:Entity a owl:Class .
+:Agent a owl:Class ; rdfs:subClassOf :Entity .
+:Person a owl:Class ; rdfs:subClassOf :Agent .
+:Organization a owl:Class ; rdfs:subClassOf :Agent .
+:Student a owl:Class ; rdfs:subClassOf :Person .
+:Professor a owl:Class ; rdfs:subClassOf :Person .
+:Staff a owl:Class ; rdfs:subClassOf :Person .
+:UndergraduateStudent a owl:Class ; rdfs:subClassOf :Student .
+:GraduateStudent a owl:Class ; rdfs:subClassOf :Student .
+:PhDStudent a owl:Class ; rdfs:subClassOf :GraduateStudent .
+:MastersStudent a owl:Class ; rdfs:subClassOf :GraduateStudent .
+:AssistantProfessor a owl:Class ; rdfs:subClassOf :Professor .
+:AssociateProfessor a owl:Class ; rdfs:subClassOf :Professor .
+:FullProfessor a owl:Class ; rdfs:subClassOf :Professor .
+:University a owl:Class ; rdfs:subClassOf :Organization .
+:Department a owl:Class ; rdfs:subClassOf :Organization .
+:ResearchGroup a owl:Class ; rdfs:subClassOf :Organization .
+:Company a owl:Class ; rdfs:subClassOf :Organization .
+:FundingAgency a owl:Class ; rdfs:subClassOf :Organization .
+:Place a owl:Class ; rdfs:subClassOf :Entity .
+:Building a owl:Class ; rdfs:subClassOf :Place .
+:Campus a owl:Class ; rdfs:subClassOf :Place .
+:Room a owl:Class ; rdfs:subClassOf :Place .
+:City a owl:Class ; rdfs:subClassOf :Place .
+:Country a owl:Class ; rdfs:subClassOf :Place .
+:Event a owl:Class ; rdfs:subClassOf :Entity .
+:Conference a owl:Class ; rdfs:subClassOf :Event .
+:Workshop a owl:Class ; rdfs:subClassOf :Event .
+:Seminar a owl:Class ; rdfs:subClassOf :Event .
+:Course a owl:Class ; rdfs:subClassOf :Entity .
+:UndergraduateCourse a owl:Class ; rdfs:subClassOf :Course .
+:GraduateCourse a owl:Class ; rdfs:subClassOf :Course .
+:Document a owl:Class ; rdfs:subClassOf :Entity .
+:Publication a owl:Class ; rdfs:subClassOf :Document .
+:Article a owl:Class ; rdfs:subClassOf :Publication .
+:Book a owl:Class ; rdfs:subClassOf :Publication .
+:Thesis a owl:Class ; rdfs:subClassOf :Publication .
+:TechnicalReport a owl:Class ; rdfs:subClassOf :Publication .
+:Proposal a owl:Class ; rdfs:subClassOf :Document .
+:Grant a owl:Class ; rdfs:subClassOf :Entity .
+:Project a owl:Class ; rdfs:subClassOf :Entity .
+:ResearchProject a owl:Class ; rdfs:subClassOf :Project .
+:EducationalProject a owl:Class ; rdfs:subClassOf :Project .
+:Resource a owl:Class ; rdfs:subClassOf :Entity .
+:Equipment a owl:Class ; rdfs:subClassOf :Resource .
+:Software a owl:Class ; rdfs:subClassOf :Resource .
+:Dataset a owl:Class ; rdfs:subClassOf :Resource .
+:Award a owl:Class ; rdfs:subClassOf :Entity .
+:Degree a owl:Class ; rdfs:subClassOf :Entity .
+:Topic a owl:Class ; rdfs:subClassOf :Entity .
+
+# ---- object properties ----
+:worksFor a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Organization .
+:memberOf a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :ResearchGroup .
+:studiesAt a owl:ObjectProperty ;
+    rdfs:domain :Student ;
+    rdfs:range :University .
+:teaches a owl:ObjectProperty ;
+    rdfs:domain :Professor ;
+    rdfs:range :Course .
+:enrolledIn a owl:ObjectProperty ;
+    rdfs:domain :Student ;
+    rdfs:range :Course .
+:advises a owl:ObjectProperty ;
+    rdfs:domain :Professor ;
+    rdfs:range :Student .
+:authorOf a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Publication .
+:publishedAt a owl:ObjectProperty ;
+    rdfs:domain :Publication ;
+    rdfs:range :Conference .
+:organizes a owl:ObjectProperty ;
+    rdfs:domain :Organization ;
+    rdfs:range :Event .
+:locatedIn a owl:ObjectProperty ;
+    rdfs:domain :Organization ;
+    rdfs:range :City .
+:locatedIn a owl:TransitiveProperty .
+:hasRoom a owl:ObjectProperty ;
+    rdfs:domain :Building ;
+    rdfs:range :Room .
+:partOfCampus a owl:ObjectProperty ;
+    rdfs:domain :Building ;
+    rdfs:range :Campus .
+:fundedBy a owl:ObjectProperty ;
+    rdfs:domain :Project ;
+    rdfs:range :FundingAgency .
+:leads a owl:ObjectProperty ;
+    rdfs:domain :Professor ;
+    rdfs:range :ResearchProject .
+:participatesIn a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Project .
+:uses a owl:ObjectProperty ;
+    rdfs:domain :Project ;
+    rdfs:range :Resource .
+:produces a owl:ObjectProperty ;
+    rdfs:domain :Project ;
+    rdfs:range :Dataset .
+:presentsAt a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Conference .
+:attends a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Workshop .
+:relatedTopic a owl:ObjectProperty ;
+    rdfs:domain :Publication ;
+    rdfs:range :Topic .
+:hasDegree a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Degree .
+:hasDegree a owl:FunctionalProperty .
+:receivedAward a owl:ObjectProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Award .
+:collaboratesWith a owl:ObjectProperty ;
+    rdfs:domain :ResearchGroup ;
+    rdfs:range :ResearchGroup .
+:collaboratesWith a owl:SymmetricProperty .
+:hostedIn a owl:ObjectProperty ;
+    rdfs:domain :Event ;
+    rdfs:range :Building .
+:cites a owl:ObjectProperty ;
+    rdfs:domain :Article ;
+    rdfs:range :Publication .
+:advisedBy a owl:ObjectProperty ; owl:inverseOf :advises .
+
+# ---- datatype properties ----
+:hasName a owl:DatatypeProperty ;
+    rdfs:domain :Person ;
+    rdfs:range xsd:string .
+:hasAge a owl:DatatypeProperty ;
+    rdfs:domain :Person ;
+    rdfs:range xsd:integer .
+:hasEmail a owl:DatatypeProperty ;
+    rdfs:domain :Person ;
+    rdfs:range xsd:string .
+:hasTitle a owl:DatatypeProperty ;
+    rdfs:domain :Publication ;
+    rdfs:range xsd:string .
+:hasYear a owl:DatatypeProperty ;
+    rdfs:domain :Publication ;
+    rdfs:range xsd:integer .
+:hasBudget a owl:DatatypeProperty ;
+    rdfs:domain :Project ;
+    rdfs:range xsd:decimal .
+:foundedYear a owl:DatatypeProperty ;
+    rdfs:domain :Organization ;
+    rdfs:range xsd:integer .
+:hasCapacity a owl:DatatypeProperty ;
+    rdfs:domain :Room ;
+    rdfs:range xsd:integer .
+:hasISBN a owl:DatatypeProperty ;
+    rdfs:domain :Book ;
+    rdfs:range xsd:string .
+:hasVersion a owl:DatatypeProperty ;
+    rdfs:domain :Software ;
+    rdfs:range xsd:string .
+
+# ---- equivalentClass / restriction axioms ----
+:ResearchProject owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf ( :Project [
+        a owl:Restriction ;
+        owl:onProperty :fundedBy ;
+        owl:someValuesFrom :FundingAgency
+    ] )
+] .
+
+:PhDStudent owl:equivalentClass [
+    a owl:Restriction ;
+    owl:onProperty :advisedBy ;
+    owl:someValuesFrom :FullProfessor
+] .
+
+:Professor rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :teaches ;
+    owl:minCardinality 1
+] .
+
+:Book rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :hasISBN ;
+    owl:cardinality 1
+] .
+
+# ---- disjointness ----
+[] a owl:AllDisjointClasses ;
+   owl:members ( :UndergraduateStudent :GraduateStudent :Staff ) .
+
+[] a owl:AllDisjointClasses ;
+   owl:members ( :AssistantProfessor :AssociateProfessor :FullProfessor ) .
+
+:Article owl:disjointWith :Book .
+

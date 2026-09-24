@@ -1,0 +1,7 @@
+{
+  "name": "gen-drawio-elk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ELK layout helper for gen_drawio.py",
+  "dependencies": { "elkjs": "^0.9.3" }
+}

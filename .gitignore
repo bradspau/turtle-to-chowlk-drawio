@@ -1,0 +1,6 @@
+venv/
+script/node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+drawio.zip
