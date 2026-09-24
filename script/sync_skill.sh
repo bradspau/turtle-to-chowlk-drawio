@@ -14,7 +14,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILL_DIR="${SKILL_DIR:-$HOME/.claude/skills/ontology-to-drawio}"
-DIST="$REPO_ROOT/dist/ontology-to-drawio.skill"
+DIST="$REPO_ROOT/skill/ontology-to-drawio.skill"
 
 # repo path -> path inside the skill
 FILES=(
@@ -57,7 +57,7 @@ chmod +x "$SKILL_DIR/scripts/validate_with_chowlk.py"
 
 # SKILL.md is authored in the skill directory, not the repo, so it is never
 # overwritten here -- it is only packaged.
-mkdir -p "$REPO_ROOT/dist"
+mkdir -p "$REPO_ROOT/skill"
 rm -f "$DIST"
 (cd "$(dirname "$SKILL_DIR")" && zip -qr "$DIST" "$(basename "$SKILL_DIR")" \
   -x '*/CLAUDE.md' -x '*/.DS_Store' -x '*/__pycache__/*' -x '*.pyc')

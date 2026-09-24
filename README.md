@@ -47,7 +47,7 @@ installed skill — see `CLAUDE.md` for how the two are kept in sync
 (`script/sync_skill.sh`) if you're working on the generator itself, not just
 using it.
 
-`dist/ontology-to-drawio.skill` is a packaged distributable (a zip archive
+`skill/ontology-to-drawio.skill` is a packaged distributable (a zip archive
 containing the skill's `SKILL.md`, `scripts/`, and `references/`, with
 `elkjs` bundled) for installing this skill into a *different* Claude Code
 setup: unzip it into that machine's `~/.claude/skills/` so it produces
